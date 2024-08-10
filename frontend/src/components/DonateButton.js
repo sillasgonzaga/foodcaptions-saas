@@ -1,30 +1,29 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeDonation } from '../store/donationSlice';
+import React from 'react';
+import styled from 'styled-components';
+import { Button } from '@material-ui/core';
+
+const StyledButton = styled(Button)`
+  && {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+  }
+`;
 
 function DonateButton() {
-  const [amount, setAmount] = useState('');
-  const dispatch = useDispatch();
-  const donationStatus = useSelector((state) => state.donation.status);
-
   const handleDonate = () => {
-    dispatch(makeDonation(amount));
+    // Implement donation logic here
+    console.log('Donate button clicked');
   };
 
   return (
-    <div>
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="Donation amount"
-      />
-      <button onClick={handleDonate} disabled={donationStatus === 'loading'}>
-        {donationStatus === 'loading' ? 'Processing...' : 'Donate'}
-      </button>
-      {donationStatus === 'succeeded' && <p>Thank you for your donation!</p>}
-      {donationStatus === 'failed' && <p>Donation failed. Please try again.</p>}
-    </div>
+    <StyledButton
+      variant="contained"
+      color="secondary"
+      onClick={handleDonate}
+    >
+      Donate
+    </StyledButton>
   );
 }
 

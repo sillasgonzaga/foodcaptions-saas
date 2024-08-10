@@ -1,26 +1,41 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { processVideo } from '../store/recipeSlice';
+import styled from 'styled-components';
+import { TextField, Button } from '@material-ui/core';
 
-function VideoInput() {
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const StyledButton = styled(Button)`
+  && {
+    margin-top: 1rem;
+  }
+`;
+
+function VideoInput({ onSubmit }) {
   const [url, setUrl] = useState('');
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(processVideo(url));
+    onSubmit(url);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
+    <Form onSubmit={handleSubmit}>
+      <TextField
+        fullWidth
+        variant="outlined"
+        label="YouTube URL"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
         placeholder="Enter YouTube URL"
       />
-      <button type="submit">Process Video</button>
-    </form>
+      <StyledButton type="submit" variant="contained" color="primary">
+        Convert
+      </StyledButton>
+    </Form>
   );
 }
 
