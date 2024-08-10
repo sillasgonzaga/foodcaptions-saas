@@ -1,55 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
-import { FaShoppingCart } from 'react-icons/fa';
-
-const HeaderWrapper = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-`;
-
-const Logo = styled.div`
-  font-weight: bold;
-  font-size: 1.5rem;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  gap: 1rem;
-`;
-
-const NavItem = styled.a`
-  text-decoration: none;
-  color: #333;
-`;
-
-const CartButton = styled.button`
-  background-color: #ff6b35;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
+import './Header.css';
 
 function Header() {
   return (
-    <HeaderWrapper>
-      <Logo>Captions</Logo>
-      <Nav>
-        <NavItem href="#">Home</NavItem>
-        <NavItem href="#">Features</NavItem>
-        <NavItem href="#">Videos</NavItem>
-        <NavItem href="#">Captions</NavItem>
-        <NavItem href="#">Blog</NavItem>
-      </Nav>
-      <CartButton>
-        <FaShoppingCart /> Buy Now
-      </CartButton>
-    </HeaderWrapper>
+    <header className="header">
+      <div className="logo">Recipe Captions</div>
+      <nav className="nav">
+        <a href="/">Home</a>
+        <a href="/">Features</a>
+        <a href="/">Videos</a>
+        <a href="/">Captions</a>
+        <a href="/">Blog</a>
+      </nav>
+      <div className="auth-buttons">
+        <button className="login-btn">Login</button>
+        <button className="signup-btn">Sign Up</button>
+      </div>
+    </header>
   );
 }
 
