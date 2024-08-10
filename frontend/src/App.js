@@ -1,18 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 import Header from './components/Header';
-import HeroSection from './components/HeroSection';
+import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
-import DonationSection from './components/DonationSection';
-import './App.css';
+import Footer from './components/Footer';
+
+const AppWrapper = styled.div`
+  font-family: 'Arial', sans-serif;
+  background-color: #fcf7f0;
+`;
 
 function App() {
   return (
-    <div className="App">
+    <AppWrapper>
       <Header />
-      <HeroSection />
+      <Hero />
       <HowItWorks />
-      <DonationSection />
-    </div>
+      <Footer />
+    </AppWrapper>
   );
 }
 

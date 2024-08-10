@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import heroImage from '../assets/x.png';
 
 const HeroWrapper = styled.div`
-  text-align: center;
   padding: 4rem 2rem;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const HeroContent = styled.div`
+  flex: 1;
+  text-align: left;
+  padding-right: 2rem;
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
 `;
 
@@ -19,7 +30,6 @@ const HeroSubtitle = styled.p`
 
 const InputWrapper = styled.div`
   display: flex;
-  justify-content: center;
   margin-bottom: 2rem;
 `;
 
@@ -38,24 +48,91 @@ const Button = styled.button`
   border-radius: 0 20px 20px 0;
 `;
 
-const HeroImage = styled.div`
-  /* You'll need to add the actual image here */
+const HeroImageWrapper = styled.div`
+  flex: 1;
+  max-width: 50%;
+`;
+
+const HeroImg = styled.img`
   width: 100%;
-  height: 300px;
-  background-color: #f0f0f0;
+  height: auto;
+`;
+
+const LoadingSpinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px 0;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const RecipeOutput = styled.div`
   margin-top: 2rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: left;
 `;
 
 function Hero() {
+  const [url, setUrl] = useState('');
+  const [recipe, setRecipe] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    setRecipe('');
+
+    try {
+      const response = await axios.post('http://localhost:5000/process_video', { url });
+      setRecipe(response.data.recipe);
+    } catch (err) {
+      setError('An error occurred while processing the video. Please try again.');
+      console.error('Error processing video:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <HeroWrapper>
-      <HeroTitle>Transform Cooking Videos into Recipes Instantly</HeroTitle>
-      <HeroSubtitle>Easily turn your favorite cooking videos into written recipes in just a few clicks.</HeroSubtitle>
-      <InputWrapper>
-        <Input type="text" placeholder="Paste YouTube link..." />
-        <Button>Get Recipe</Button>
-      </InputWrapper>
-      <HeroImage />
+      <HeroContent>
+        <HeroTitle>Transform Cooking Videos into Recipes Instantly</HeroTitle>
+        <HeroSubtitle>Easily turn your favorite cooking videos into written recipes in just a few clicks.</HeroSubtitle>
+        <form onSubmit={handleSubmit}>
+          <InputWrapper>
+            <Input 
+              type="text" 
+              placeholder="Paste YouTube link..." 
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+            />
+            <Button type="submit">Get Recipe</Button>
+          </InputWrapper>
+        </form>
+        {isLoading && <LoadingSpinner />}
+        {error && <p style={{color: 'red'}}>{error}</p>}
+        {recipe && (
+          <RecipeOutput>
+            <h3>Generated Recipe:</h3>
+            <pre>{recipe}</pre>
+          </RecipeOutput>
+        )}
+      </HeroContent>
+      <HeroImageWrapper>
+        <HeroImg src={heroImage} alt="Person cooking while watching a video" />
+      </HeroImageWrapper>
     </HeroWrapper>
   );
 }
