@@ -11,7 +11,7 @@ const FooterWrapper = styled.footer`
 function Footer() {
   return (
     <FooterWrapper>
-      <p>&copy; 2024 Captions. All rights reserved.</p>
+      <p>&copy; 2024 FoodCaptions. All rights reserved.</p>
     </FooterWrapper>
   );
 }

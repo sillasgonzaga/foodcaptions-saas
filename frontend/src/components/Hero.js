@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import heroImage from '../assets/x.png';
+import heroImage from '../assets/hero-image.jpg';
 
 const HeroWrapper = styled.div`
   padding: 4rem 2rem;
@@ -54,7 +54,7 @@ const HeroImageWrapper = styled.div`
 `;
 
 const HeroImg = styled.img`
-  width: 100%;
+  width: 80%;
   height: auto;
 `;
 

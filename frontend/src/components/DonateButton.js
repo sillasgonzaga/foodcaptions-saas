@@ -1,30 +1,35 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeDonation } from '../store/donationSlice';
+import React from 'react';
+import styled from 'styled-components';
+import { FaShoppingCart } from 'react-icons/fa';
+
+const DonateButtonWrapper = styled.a`
+  background-color: #ff6b35;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e85a2d;
+  }
+`;
 
 function DonateButton() {
-  const [amount, setAmount] = useState('');
-  const dispatch = useDispatch();
-  const donationStatus = useSelector((state) => state.donation.status);
-
-  const handleDonate = () => {
-    dispatch(makeDonation(amount));
-  };
-
   return (
-    <div>
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="Donation amount"
-      />
-      <button onClick={handleDonate} disabled={donationStatus === 'loading'}>
-        {donationStatus === 'loading' ? 'Processing...' : 'Donate'}
-      </button>
-      {donationStatus === 'succeeded' && <p>Thank you for your donation!</p>}
-      {donationStatus === 'failed' && <p>Donation failed. Please try again.</p>}
-    </div>
+    <DonateButtonWrapper 
+      href="https://buy.stripe.com/7sI2aG5S575maoodQQ" 
+      target="_blank" 
+      rel="noopener noreferrer"
+    >
+      <FaShoppingCart /> Donate
+    </DonateButtonWrapper>
   );
 }
 
