@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from backend.utils import extract_transcript_as_text, parse_to_recipe, extract_youtube_id
 from supabase import create_client, Client
 import os
+import requests
 
 main = Blueprint('main', __name__)
 
@@ -42,3 +43,10 @@ def process_video():
     print('Serving recipe')
     return jsonify({'recipe': recipe_text}), 200
 
+ip_test = Blueprint('ip_test', __name__)
+
+
+@main.route('/check_ip', methods=['GET'])
+def check_ip():
+    ip = requests.get('https://api.ipify.org').text
+    return jsonify({'ip': ip}), 200
