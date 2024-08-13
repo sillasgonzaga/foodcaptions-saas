@@ -3,8 +3,12 @@ from models import Video, Recipe, Donation
 from extensions import db
 from utils import extract_transcript_as_text, parse_to_recipe, extract_youtube_id
 import stripe
+import os
 
 main = Blueprint('main', __name__)
+
+
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 
 @main.route('/process_video', methods=['POST'])
@@ -35,23 +39,3 @@ def process_video():
     
     return jsonify({'recipe': recipe_text}), 200
 
-@main.route('/donate', methods=['POST'])
-def donate():
-    amount = request.json.get('amount')
-    token = request.json.get('token')
-    
-    try:
-        charge = stripe.Charge.create(
-            amount=int(amount * 100),  # Amount in cents
-            currency='usd',
-            source=token,
-            description='Donation to FoodCaptions'
-        )
-        
-        donation = Donation(amount=amount, patreon_transaction_id=charge.id)
-        db.session.add(donation)
-        db.session.commit()
-        
-        return jsonify({'message': 'Donation successful'}), 200
-    except stripe.error.StripeError as e:
-        return jsonify({'error': str(e)}), 400
