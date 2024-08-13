@@ -7,3 +7,4 @@ openai==1.37.1
 stripe
 Flask-SQLAlchemy
 Flask-CORS
+python-dotenv==1.0.1
