@@ -14,15 +14,6 @@ const Logo = styled.div`
   font-size: 1.5rem;
 `;
 
-const Nav = styled.nav`
-  display: flex;
-  gap: 1rem;
-`;
-
-const NavItem = styled.a`
-  text-decoration: none;
-  color: #333;
-`;
 
 function Header() {
   return (
