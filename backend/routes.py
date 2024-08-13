@@ -23,14 +23,17 @@ def process_video():
     
     # Process new video
     # get video id
+    print('Extracting transcript from Youtube')
     video_id = extract_youtube_id(video_url)
     transcript, language, error = extract_transcript_as_text(video_id)
     if not transcript:
         return jsonify({'error': f'Failed to fetch transcript. Reason: {error}'}), 400
     
+    print('Parsing transcript to text')
     recipe_text = parse_to_recipe(transcript)
     
     # Save to database
+    print('Storing data on Supabase')
     supabase_data = supabase.table("recipes").insert({
     "url": video_url,
     "raw_text": transcript,
@@ -39,5 +42,6 @@ def process_video():
     "error": error
     }).execute()
 
+    print('Serving recipe')
     return jsonify({'recipe': recipe_text}), 200
 

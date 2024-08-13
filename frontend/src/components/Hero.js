@@ -151,7 +151,7 @@ function Hero() {
     <HeroWrapper>
       <HeroContent>
         <HeroTitle>Transform Cooking Videos into Recipes Instantly</HeroTitle>
-        <HeroSubtitle>Easily turn your favorite cooking videos into written recipes in just a few clicks.</HeroSubtitle>
+        <HeroSubtitle>Easily turn your favorite cooking videos into written recipes in just one click.</HeroSubtitle>
         <form onSubmit={handleSubmit}>
           <InputWrapper>
             <Input 
