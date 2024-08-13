@@ -11,9 +11,15 @@ const FooterWrapper = styled.footer`
 function Footer() {
   return (
     <FooterWrapper>
-      <p>&copy; 2024 FoodCaptions. All rights reserved.</p>
+      <p>
+        &copy; 2024 FoodCaptions. All rights reserved. Write your feedback to{' '}
+        <a href="https://twitter.com/sillastg" target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'none' }}>
+          @sillastg
+        </a> on Twitter/X.
+      </p>
     </FooterWrapper>
   );
 }
+
 
 export default Footer;

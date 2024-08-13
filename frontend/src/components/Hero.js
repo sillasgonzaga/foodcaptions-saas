@@ -73,13 +73,49 @@ const LoadingSpinner = styled.div`
   }
 `;
 
-const RecipeOutput = styled.div`
-  margin-top: 2rem;
-  padding: 1rem;
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+
+const ModalContent = styled.div`
   background-color: white;
+  padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80%;
+  overflow-y: auto;
+  box-sizing: border-box;
   text-align: left;
+  font-size: 1rem;
+`;
+
+const RecipeText = styled.pre`
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+`;
+
+
+
+const CloseButton = styled.button`
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
 `;
 
 function Hero() {
@@ -87,6 +123,7 @@ function Hero() {
   const [recipe, setRecipe] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,12 +134,17 @@ function Hero() {
     try {
       const response = await axios.post('http://localhost:5000/process_video', { url });
       setRecipe(response.data.recipe);
+      setIsModalOpen(true); // Open the modal when the recipe is received
     } catch (err) {
       setError('An error occurred while processing the video. Please try again.');
       console.error('Error processing video:', err);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -123,16 +165,20 @@ function Hero() {
         </form>
         {isLoading && <LoadingSpinner />}
         {error && <p style={{color: 'red'}}>{error}</p>}
-        {recipe && (
-          <RecipeOutput>
-            <h3>Generated Recipe:</h3>
-            <pre>{recipe}</pre>
-          </RecipeOutput>
-        )}
       </HeroContent>
       <HeroImageWrapper>
         <HeroImg src={heroImage} alt="Person cooking while watching a video" />
       </HeroImageWrapper>
+
+      {isModalOpen && (
+        <Modal>
+          <ModalContent>
+            <h3>Generated Recipe:</h3>
+            <RecipeText>{recipe}</RecipeText>
+            <CloseButton onClick={closeModal}>Close</CloseButton>
+          </ModalContent>
+        </Modal>
+      )}
     </HeroWrapper>
   );
 }
