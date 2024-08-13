@@ -17,9 +17,6 @@ def process_video():
     video_url = request.json.get('url')
     
     # Check if video already processed
-    #existing_video = Video.query.filter_by(url=video_url).first()
-    #if existing_video and existing_video.success:
-    #    return jsonify({'recipe': existing_video.recipe.text}), 200
     
     # Process new video
     # get video id

@@ -136,7 +136,17 @@ function Hero() {
       setRecipe(response.data.recipe);
       setIsModalOpen(true); // Open the modal when the recipe is received
     } catch (err) {
-      setError('An error occurred while processing the video. Please try again.');
+      if (err.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        setError(`Server error: ${err.response.data.message || err.response.data}`);
+      } else if (err.request) {
+        // The request was made but no response was received
+        setError('No response received from server. Please try again later.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setError(`Error: ${err.message}`);
+      }
       console.error('Error processing video:', err);
     } finally {
       setIsLoading(false);
