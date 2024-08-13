@@ -2,13 +2,8 @@ from flask import Blueprint, request, jsonify
 from models import Video, Recipe, Donation
 from extensions import db
 from utils import extract_transcript_as_text, parse_to_recipe, extract_youtube_id
-import stripe
-import os
 
 main = Blueprint('main', __name__)
-
-
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 
 @main.route('/process_video', methods=['POST'])
