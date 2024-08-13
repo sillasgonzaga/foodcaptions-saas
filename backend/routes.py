@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
-from models import Video, Recipe, Donation
-from extensions import db
-from utils import extract_transcript_as_text, parse_to_recipe, extract_youtube_id
+from backend.models import Video, Recipe, Donation
+from backend.extensions import db
+from backend.utils import extract_transcript_as_text, parse_to_recipe, extract_youtube_id
 
 main = Blueprint('main', __name__)
 
