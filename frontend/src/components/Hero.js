@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import heroImage from '../assets/hero-image.jpg';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const HeroWrapper = styled.div`
   padding: 4rem 2rem;
@@ -132,7 +133,7 @@ function Hero() {
     setRecipe('');
 
     try {
-      const response = await axios.post('http://localhost:5000/process_video', { url });
+      const response = await axios.post(`${API_URL}/process_video`, { url });
       setRecipe(response.data.recipe);
       setIsModalOpen(true); // Open the modal when the recipe is received
     } catch (err) {
