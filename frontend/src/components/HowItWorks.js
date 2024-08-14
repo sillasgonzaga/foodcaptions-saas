@@ -43,8 +43,8 @@ function HowItWorks() {
         </Step>
         <Step>
           <StepIcon><FaFileAlt /></StepIcon>
-          <StepTitle>No Extra Info Required</StepTitle>
-          <p>Our AI does all the work for you</p>
+          <StepTitle>Get the written recipe</StepTitle>
+          <p>Our AI does all the work for you (if the transcript is available on Youtube)</p>
         </Step>
         <Step>
           <StepIcon><FaDollarSign /></StepIcon>
