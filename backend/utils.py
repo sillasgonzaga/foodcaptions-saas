@@ -2,7 +2,7 @@ from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, No
 from xml.etree import ElementTree
 from openai import OpenAI
 import os
-from backend.prompts import transcription_prompt, video_description_prompt
+from prompts import transcription_prompt, video_description_prompt
 import re
 
 key = os.getenv("OPEN_AI_KEY")
