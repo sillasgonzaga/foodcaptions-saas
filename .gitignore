@@ -30,6 +30,7 @@ ENV/
 env/
 env.bak/
 venv.bak/
+myenv/
 
 # Flask-Specific
 instance/
