@@ -48,8 +48,16 @@ function HowItWorks() {
         </Step>
         <Step>
           <StepIcon><FaDollarSign /></StepIcon>
-          <StepTitle>Support us Donation?</StepTitle>
-          <p>Help us keep the service running</p>
+          <StepTitle>Support me?</StepTitle>
+          <p>
+            Unfortunately, FoodCaptions is not free for me to keep it running.
+            Help me keep this free service online.
+            </p>
+            <p>  
+            <a href="https://buy.stripe.com/7sI2aG5S575maoodQQ" target="_blank" rel="noopener noreferrer">
+               Donate here
+            </a>
+          </p>
         </Step>
       </StepsContainer>
     </HowItWorksWrapper>
