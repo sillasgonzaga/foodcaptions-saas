@@ -132,7 +132,7 @@ function Hero() {
     setRecipe('');
 
     try {
-      const response = await axios.post('https://foodcaptions-saas.onrender.com/process_video', { url });
+      const response = await axios.post('http://localhost:5000/process_video', { url });
       setRecipe(response.data.recipe);
       setIsModalOpen(true); // Open the modal when the recipe is received
     } catch (err) {
