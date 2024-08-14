@@ -39,12 +39,12 @@ function HowItWorks() {
         <Step>
           <StepIcon><FaLink /></StepIcon>
           <StepTitle>Paste Your Video Link</StepTitle>
-          <p>Simply copy and paste the YouTube video URL</p>
+          <p>Simply copy and paste the YouTube video URL. You can use videos from any language, as long as the transcript is available on Youtube.</p>
         </Step>
         <Step>
           <StepIcon><FaFileAlt /></StepIcon>
           <StepTitle>Get the written recipe</StepTitle>
-          <p>Our AI does all the work for you (if the transcript is available on Youtube)</p>
+          <p>Our AI does all the work for you. The recipe will be displayed in English.</p>
         </Step>
         <Step>
           <StepIcon><FaDollarSign /></StepIcon>
