@@ -5,6 +5,7 @@ import os
 from utils import extract_transcript_as_text, parse_to_recipe, extract_youtube_id
 import httpx
 import logging
+import requests
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -54,6 +55,21 @@ def process_video():
     logging.debug('Serving recipe')
     print('Serving recipe')
     return jsonify({'recipe': recipe_text}), 200
+
+
+@app.route('/process_video_proxy', methods=['POST'])
+def process_video_proxy():
+    try:
+        url = request.json.get('url')
+        # Forward the request to the actual endpoint
+        backend_url = os.environ.get("CLOUD_RUN_BASE_URL")
+        response = requests.post(f'{backend_url}/process_video', json={'url': url})
+        response.raise_for_status()
+        data = response.json()
+        return jsonify(data)
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': 'An error occurred while processing the video'}), 500
+
 
 @app.route('/test', methods=['GET'])
 def test_request():
