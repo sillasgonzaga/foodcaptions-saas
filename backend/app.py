@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from supabase import create_client, Client
+from supabase import create_client
 import os
 from utils import extract_transcript_as_text, parse_to_recipe, extract_youtube_id
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, methods=["GET", "POST", "PUT", "DELETE"], allow_headers=["Content-Type", "Authorization"])
 
 url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
@@ -15,7 +15,9 @@ supabase = create_client(url, key)
 
 @app.route('/', methods=['POST'])
 def process_video():
+    print('Starting app')
     video_url = request.json.get('url')
+    print(f'Received video URL: {video_url}')  # Log input
     
     # Check if video already processed
     
@@ -45,5 +47,6 @@ def process_video():
 
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = 5000)
+    print('main called')
+    app.run(port = 5000)
 
